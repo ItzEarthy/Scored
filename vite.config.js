@@ -14,7 +14,7 @@ export default defineConfig({
         description: 'A simple, offline-first scoreboard for keeping score in any match.',
         theme_color: '#2f5d8a',
         background_color: '#2f5d8a',
-        display: 'fullscreen',
+        display: 'standalone',
         orientation: 'any',
         start_url: '/',
         icons: [

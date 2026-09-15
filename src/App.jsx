@@ -3,6 +3,7 @@ import TeamBlock from './components/TeamBlock.jsx'
 import TimerPill from './components/TimerPill.jsx'
 import SettingsModal from './components/SettingsModal.jsx'
 import WinBanner from './components/WinBanner.jsx'
+import InstallButton from './components/InstallButton.jsx'
 import { useOrientation } from './hooks/useOrientation.js'
 import { loadState, saveState, teamHasWon } from './lib/model.js'
 
@@ -101,6 +102,8 @@ export default function App() {
         onToggle={toggleTimer}
         onReset={resetTimer}
       />
+
+      <InstallButton />
 
       <button
         aria-label="Settings"

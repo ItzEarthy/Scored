@@ -10,7 +10,7 @@ A simple, offline-first scoreboard PWA — a clone of "Scoreboard - Keep Score" 
 - 👑 crown on the leading team
 - Settings screen: points to win, win margin, rounds to win, increment per tap, timer length, and per-team name/color/points/rounds
 - Win banner when a team hits the win condition
-- Installable PWA with offline support (service worker + manifest)
+- Installable PWA with offline support (service worker + manifest), plus an in-app **Install** button (Android/desktop Chrome & Edge) and Add-to-Home-Screen instructions on iOS Safari
 - State (scores, settings, timer) persists in `localStorage` across sessions
 
 The data model supports any number of teams (not hard-coded to two), even though the UI defaults to two.
