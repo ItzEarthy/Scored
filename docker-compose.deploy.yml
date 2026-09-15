@@ -1,0 +1,10 @@
+# Paste this into Dockge (or any Compose-based deploy tool) to pull the
+# prebuilt image from GHCR and run it, with no local build step required.
+# Built and published automatically by .github/workflows/docker-publish.yml
+# on every push to main.
+services:
+  scored:
+    image: ghcr.io/itzearthy/scored:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped

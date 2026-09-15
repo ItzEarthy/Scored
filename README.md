@@ -45,6 +45,37 @@ docker compose up --build
 
 This builds the app and serves the static `dist/` output with nginx on [http://localhost:8080](http://localhost:8080).
 
+## Automated builds (GitHub Actions -> GHCR)
+
+Every push to `main` (and any `v*` tag) triggers [.github/workflows/docker-publish.yml](.github/workflows/docker-publish.yml), which builds the Docker image and publishes it to the GitHub Container Registry as:
+
+```
+ghcr.io/itzearthy/scored:latest
+```
+
+**First-time setup:** GHCR packages are private by default, even in a public repo. After the workflow's first successful run, open the package on GitHub (your profile/org -> Packages -> `scored`) and set its visibility to Public, or link it to the repo and grant read access — otherwise `docker pull` from another machine (e.g. Dockge) will fail with an auth error.
+
+### Deploying with Dockge (or Portainer, or plain `docker compose`)
+
+Use [docker-compose.deploy.yml](docker-compose.deploy.yml) — it only references the published image, with no build step, so the host doesn't need the source code:
+
+```yaml
+services:
+  scored:
+    image: ghcr.io/itzearthy/scored:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+```
+
+Paste that into a new Dockge stack and deploy — it pulls the image straight from GHCR and starts the container. To pick up new pushes, use Dockge's "Pull" / "Update" action (or `docker compose pull && docker compose up -d`) to fetch the latest tag.
+
+If the package is private, first authenticate the Dockge host once with a [GitHub personal access token](https://github.com/settings/tokens) that has `read:packages` scope:
+
+```bash
+docker login ghcr.io -u <your-github-username>
+```
+
 ## Project structure
 
 ```
@@ -56,7 +87,9 @@ src/
 public/
   icons/          PWA app icons
 Dockerfile        multi-stage build -> nginx static server
-docker-compose.yml
+docker-compose.yml         local dev/build (builds the image from source)
+docker-compose.deploy.yml  deploy-only (pulls the published GHCR image, e.g. for Dockge)
+.github/workflows/         CI: builds and publishes the image to GHCR
 ```
 
 ## Notes
