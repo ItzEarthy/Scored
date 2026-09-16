@@ -1,6 +1,6 @@
 # Scored
 
-A simple, offline-first scoreboard PWA — a clone of "Scoreboard - Keep Score" by Truyendiv. No backend, no accounts. Everything is stored locally in your browser.
+A simple, offline-first scoreboard PWA. No backend, no accounts. Everything is stored locally in your browser.
 
 ## Features
 
